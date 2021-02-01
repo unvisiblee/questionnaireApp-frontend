@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RxwebValidators} from '@rxweb/reactive-form-validators';
 import {SignupRequestPayload} from './signup-request.payload';
 import {AuthService} from '../shared/auth.service';
+import {Router} from '@angular/router';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +15,7 @@ export class SignupComponent implements OnInit {
   signupRequestPayload: SignupRequestPayload;
   signupForm: FormGroup;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {
     this.signupForm = new FormGroup({});
     this.signupRequestPayload = {
       username: '',
@@ -49,7 +51,13 @@ export class SignupComponent implements OnInit {
     this.signupRequestPayload.lastName = this.signupForm.get('lastName')?.value;
     this.signupRequestPayload.phoneNumber = this.signupForm.get('phoneNumber')?.value;
 
-    this.authService.signup(this.signupRequestPayload).subscribe(data => { console.log(data); });
+    this.authService.signup(this.signupRequestPayload)
+      .subscribe(data => {
+      this.router.navigate(['/login'],
+        {queryParams: {registered: 'true'} });
+    }, error => {
+        console.log(JSON.parse(error.error).message);
+        this.toastr.error(JSON.parse(error.error).message);
+      });
   }
-
 }
