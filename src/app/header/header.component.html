@@ -14,9 +14,30 @@
                 </span>
       </a>
     </div>
-    <div class="flex-grow-1 float-right">
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/fields">Fields</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/responses">Responses</a>
+        </li>
+
+      <div *ngIf="isLoggedIn" ngbDropdown>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu dropdown-menu-right">
+          <button (click)="goToUserProfile()" ngbDropdownItem class="dropdown-item">Edit profile</button>
+          <button (click)="goToUserProfile()" ngbDropdownItem class="dropdown-item">Change password</button>
+          <button (click)="logout()" ngbDropdownItem class="dropdown-item">Logout</button>
+        </div>
+        <button class="userdetails" id="dropdownBasic1" ngbDropdownToggle>
+          {{username}}
+        </button>
+      </div>
+      <div *ngIf="!isLoggedIn">
         <a routerLink="/sign-up" class="float-right sign-up mr-2">Sign up</a>
         <a routerLink="/login" class="float-right login mr-2">Login</a>
+    </div>
+      </ul>
     </div>
   </nav>
 </header>
