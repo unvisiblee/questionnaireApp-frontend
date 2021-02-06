@@ -27,11 +27,16 @@ export class HeaderComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   logout() {
-
+    this.authService.logout();
+    this.isLoggedIn = false;
+    this.router.navigateByUrl('login');
   }
 
-  // tslint:disable-next-line:typedef
-  goToUserProfile() {
+  goToUserProfile(): void {
+    this.router.navigateByUrl('edit-profile');
+  }
 
+  goToChangePassword(): void {
+    this.router.navigateByUrl('change-password');
   }
 }

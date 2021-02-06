@@ -26,7 +26,7 @@
       <div *ngIf="isLoggedIn" ngbDropdown>
         <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-menu dropdown-menu-right">
           <button (click)="goToUserProfile()" ngbDropdownItem class="dropdown-item">Edit profile</button>
-          <button (click)="goToUserProfile()" ngbDropdownItem class="dropdown-item">Change password</button>
+          <button (click)="goToChangePassword()" ngbDropdownItem class="dropdown-item">Change password</button>
           <button (click)="logout()" ngbDropdownItem class="dropdown-item">Logout</button>
         </div>
         <button class="userdetails" id="dropdownBasic1" ngbDropdownToggle>

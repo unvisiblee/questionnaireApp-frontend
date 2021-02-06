@@ -47,4 +47,9 @@ export class AuthService {
   isLoggedIn(): boolean {
     return this.getToken() != null;
   }
+
+  logout(): void {
+    this.localStorage.clear('token');
+    this.localStorage.clear('username');
+  }
 }

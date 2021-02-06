@@ -7,7 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
@@ -18,6 +18,7 @@ import { ResponseComponent } from './response/response.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {TokenInterceptor} from './token-interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,13 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
         warning: 'alert-warning'} } ),
     NgbModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
