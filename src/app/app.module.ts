@@ -12,6 +12,12 @@ import {NgxWebstorageModule} from 'ngx-webstorage';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {timeout} from 'rxjs/operators';
+import { FormComponent } from './form/form.component';
+import { FieldComponent } from './field/field.component';
+import { ResponseComponent } from './response/response.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -19,6 +25,11 @@ import {timeout} from 'rxjs/operators';
     HeaderComponent,
     LoginComponent,
     SignupComponent,
+    FormComponent,
+    FieldComponent,
+    ResponseComponent,
+    ChangePasswordComponent,
+    EditProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,12 +38,13 @@ import {timeout} from 'rxjs/operators';
     HttpClientModule,
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot({progressBar: true, timeOut: 1001000, toastClass: 'alert',
+    ToastrModule.forRoot({progressBar: true, timeOut: 2500, toastClass: 'alert',
       iconClasses: {
         error: 'alert-danger',
         info: 'alert-info',
         success: 'alert-success',
-        warning: 'alert-warning'} } )
+        warning: 'alert-warning'} } ),
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
