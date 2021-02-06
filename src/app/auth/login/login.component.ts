@@ -5,6 +5,7 @@ import {LoginRequestPayload} from './login-request.payload';
 import {AuthService} from '../shared/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {ProfileService} from '../../profile/shared/profile.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,8 @@ export class LoginComponent implements OnInit {
   loginRequestPayload: LoginRequestPayload;
   loginForm: FormGroup;
 
-  constructor(private authService: AuthService, private toastr: ToastrService, private router: Router) {
+  constructor(private authService: AuthService, private toastr: ToastrService, private router: Router,
+              private profileService: ProfileService) {
     this.loginRequestPayload = {
       password: '',
       username: ''
@@ -36,8 +38,9 @@ export class LoginComponent implements OnInit {
   login() {
     this.loginRequestPayload.password = this.loginForm.get('password')?.value;
     this.loginRequestPayload.username = this.loginForm.get('username')?.value;
-
-    this.authService.login(this.loginRequestPayload).subscribe(data => {console.log('Login successful'); }, error => {
+    this.authService.login(this.loginRequestPayload).subscribe(data => {
+      console.log('Login successful');
+      }, error => {
       this.toastr.error('Failed to log in.\n' +
         'Please make sure that you have entered your login and password correctly.');
     });

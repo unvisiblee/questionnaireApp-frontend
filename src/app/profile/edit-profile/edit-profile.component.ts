@@ -64,7 +64,6 @@ export class EditProfileComponent implements OnInit {
       this.editProfileForm.patchValue(data);
       this.toastr.success('Successfully updated your profile!');
     });
-
   }
 
 }
