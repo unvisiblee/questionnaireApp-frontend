@@ -4,6 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {FieldResponsePayload} from '../field/field-response.payload';
 import {FormResponsePayload} from '../field/form-response.payload';
+import {FieldRequestPayload} from '../field/field-request.payload';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,16 @@ export class FieldService {
   constructor(private httpClient: HttpClient) { }
 
   public getFormByUserId(userId: number): Observable<FormResponsePayload> {
-    const options = {headers: {'Access-Control-Allow-Origin': '*'}};
     return this.httpClient.get<FormResponsePayload>(    this.formApi + '/' + userId);
+  }
+
+  updateField(fieldToEdit: FieldResponsePayload): Observable<FieldResponsePayload> {
+    const options = {headers: {'Content-Type': 'application/json'}};
+    return this.httpClient.put<FieldResponsePayload>(this.fieldApi + '/' + fieldToEdit.id, JSON.stringify(fieldToEdit), options);
+  }
+
+  createField(fieldToCreate: FieldRequestPayload): Observable<FieldResponsePayload> {
+    const options = {headers: {'Content-Type': 'application/json'}};
+    return this.httpClient.post<FieldResponsePayload>(this.fieldApi, JSON.stringify(fieldToCreate), options);
   }
 }

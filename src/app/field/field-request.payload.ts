@@ -1,11 +1,10 @@
 import {FieldType} from './fieldType';
 
-export interface FieldResponsePayload {
-  id: number;
+export interface FieldRequestPayload {
   label: string;
-  formId: number;
   fieldType: FieldType;
   required: boolean;
   active: boolean;
+  formId: number;
   options: string[];
 }

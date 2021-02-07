@@ -6,6 +6,8 @@ import {AuthService} from '../shared/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {ProfileService} from '../../profile/shared/profile.service';
+import {timeout} from 'rxjs/operators';
+import {LocalStorageService} from 'ngx-webstorage';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +20,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
 
   constructor(private authService: AuthService, private toastr: ToastrService, private router: Router,
-              private profileService: ProfileService) {
+              private profileService: ProfileService, private localStorage: LocalStorageService) {
     this.loginRequestPayload = {
       password: '',
       username: ''
@@ -40,11 +42,14 @@ export class LoginComponent implements OnInit {
     this.loginRequestPayload.username = this.loginForm.get('username')?.value;
     this.authService.login(this.loginRequestPayload).subscribe(data => {
       console.log('Login successful');
-      }, error => {
+      this.profileService.getUserInfoByUsername(this.loginForm.get('username')?.value).subscribe(info => {
+        this.localStorage.store('userdetails', JSON.stringify(info));
+        this.router.navigateByUrl('fields');
+      });
+    }, error => {
       this.toastr.error('Failed to log in.\n' +
         'Please make sure that you have entered your login and password correctly.');
     });
-    // this.router.navigateByUrl()
   }
 
 }

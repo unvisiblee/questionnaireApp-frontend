@@ -51,6 +51,8 @@ SVG Icons
   height: 1.5em;
 }
 
+
+
 .svg-icon path,
 .svg-icon polygon,
 .svg-icon rect {
@@ -60,4 +62,8 @@ SVG Icons
 .svg-icon circle {
   stroke: #4691f6;
   stroke-width: 1;
+}
+
+.add-field {
+  stroke: white;
 }

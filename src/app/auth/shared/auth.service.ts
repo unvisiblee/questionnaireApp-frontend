@@ -32,9 +32,8 @@ export class AuthService {
     return this.httpClient.post<LoginResponsePayload>(this.authUrl + '/login', loginRequestPayload).pipe(map(data => {
       this.localStorage.store('username', data.username);
       this.localStorage.store('token', data.authToken);
-      this.profileService.getUserInfoByUsername(data.username).subscribe(info => {
-        this.localStorage.store('userdetails', JSON.stringify(info));
-      });
+      this.loggedIn.emit(true);
+      this.username.emit(data.username);
       return true;
     }));
 }
