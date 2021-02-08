@@ -6,6 +6,7 @@ import {FieldComponent} from './field/field.component';
 import {ChangePasswordComponent} from './profile/change-password/change-password.component';
 import {EditProfileComponent} from './profile/edit-profile/edit-profile.component';
 import {ResponseComponent} from './response/response.component';
+import {QuestionnaireComponent} from './questionnaire/questionnaire.component';
 
 const routes: Routes = [
   {path: 'sign-up', component: SignupComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'change-password', component: ChangePasswordComponent},
   {path: 'edit-profile', component: EditProfileComponent},
   {path: 'fields', component: FieldComponent},
-  {path: 'responses', component: ResponseComponent}
+  {path: 'responses', component: ResponseComponent},
+  {path: 'form/:id/questionnaire', component: QuestionnaireComponent}
 ];
 
 @NgModule({

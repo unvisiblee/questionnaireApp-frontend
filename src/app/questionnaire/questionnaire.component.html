@@ -1,0 +1,59 @@
+<div class="questionnaire-section">
+  <div class="row justify-content-center">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header" style="text-align: center">
+          <h4>Questionnaire</h4>
+        </div>
+        <div class="card-body">
+        <form [formGroup]="questionnaireFormGroup" (ngSubmit)="saveAnswer()">
+          <div formArrayName="questionnaire">
+            <div class="form-group row"  *ngFor="let field of formToAnswer.fields; let fieldIndex=index">
+
+              <label  class="col-md-4 col-form-label text-md-right" for="{{fieldIndex}}" [ngClass]="{'required' : field.required}" *ngIf="field.active">
+                {{field.label}}
+              </label>
+
+              <div class="col-md-6">
+                <input [formControlName]="fieldIndex.toString()" class="form-control" id='{{fieldIndex}}' type="text" *ngIf="field.fieldType === 'SINGLE_LINE_TEXT' && field.active">
+                <textarea [formControlName]="fieldIndex.toString()" class="form-control" id='{{fieldIndex}}' *ngIf="field.fieldType === 'MULTILINE_TEXT' && field.active"></textarea>
+
+                <div class="form-check" *ngFor="let option of field.options; let optionIndex=index">
+                  <label for="radio{{optionIndex}}" *ngIf="field.fieldType === 'RADIO_BUTTON' && field.active">
+                    <input [formControlName]="fieldIndex.toString()" value="{{option}}" type="radio" id="radio{{optionIndex}}" >
+                    {{option}}
+                  </label>
+                </div>
+
+
+                <label style="margin-top: 8%" class="form-check" for="{{fieldIndex}}" *ngIf="field.fieldType === 'CHECKBOX' && field.active">
+                  <input [formControlName]="fieldIndex.toString()" type="checkbox" id="{{fieldIndex}}">
+                </label>
+
+                <select id="{{fieldIndex}}" class="form-control" [formControlName]="fieldIndex.toString()" *ngIf="field.fieldType === 'COMBOBOX'">
+                  <option *ngFor="let option of field.options">
+                    {{option}}
+                  </option>
+                </select>
+
+                <input class="form-control" type="date" [formControlName]="fieldIndex.toString()" *ngIf="field.fieldType === 'DATE'">
+
+
+
+              </div>
+            </div>
+
+          <span class="col-md-6 offset-md-4">
+                            <button type="submit" class="confirm-questionnaire">
+                                Confirm
+                            </button>
+                        </span>
+          </div>
+        </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>

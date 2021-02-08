@@ -79,6 +79,7 @@ export class FieldComponent implements OnInit {
     this.fieldToEdit = field;
     const modalRef = this.ngbModal.open(content, {size: 'lg', ariaLabelledBy: 'modal-basic-title'});
     this.editFieldForm.patchValue(field);
+    this.editFieldForm.get('options')?.patchValue(this.editFieldForm.get('options')?.value.toString().replaceAll(',', '\n'));
     modalRef.result.then(
       (save) => {
         console.log('save');
@@ -86,8 +87,8 @@ export class FieldComponent implements OnInit {
         this.fieldToEdit.fieldType = this.editFieldForm.get('fieldType')?.value;
         this.fieldToEdit.required = this.editFieldForm.get('required')?.value;
         this.fieldToEdit.active = this.editFieldForm.get('active')?.value;
-        const options = this.editFieldForm.get('options')?.value;
-        if (options !== null) {
+        const options = this.editFieldForm.get('options')?.value + '';
+        if (options !== null && options !== undefined) {
           this.fieldToEdit.options = options.split('\n');
         }
         this.fieldService.updateField(this.fieldToEdit).subscribe((data) => {

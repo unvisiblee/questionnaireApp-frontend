@@ -16,7 +16,7 @@ export class FieldService {
   constructor(private httpClient: HttpClient) { }
 
   public getFormByUserId(userId: number): Observable<FormResponsePayload> {
-    return this.httpClient.get<FormResponsePayload>(    this.formApi + '/' + userId);
+    return this.httpClient.get<FormResponsePayload>(    this.formApi + '/by-user/' + userId);
   }
 
   updateField(fieldToEdit: FieldResponsePayload): Observable<FieldResponsePayload> {

@@ -19,6 +19,7 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TokenInterceptor} from './token-interceptor';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {TokenInterceptor} from './token-interceptor';
     ResponseComponent,
     ChangePasswordComponent,
     EditProfileComponent,
+    QuestionnaireComponent,
   ],
   imports: [
     BrowserModule,
