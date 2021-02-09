@@ -28,4 +28,9 @@ export class FieldService {
     const options = {headers: {'Content-Type': 'application/json'}};
     return this.httpClient.post<FieldResponsePayload>(this.fieldApi, JSON.stringify(fieldToCreate), options);
   }
+
+  deleteField(fieldId: number): Observable<any> {
+    const options = {headers: {'Content-Type': 'application/json'}};
+    return this.httpClient.delete(this.fieldApi + '/' + fieldId);
+  }
 }

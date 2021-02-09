@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import {FormResponsePayload} from '../field/form-response.payload';
+import {ResponseServerResponsePayload} from '../questionnaire/response-serverResponse.payload';
+import {FieldService} from '../shared/field.service';
+import {LocalStorageService} from 'ngx-webstorage';
+import {ResponseService} from '../shared/response.service';
+import {FieldResponsePayload} from '../field/field-response.payload';
+import {ResponseForFieldsResponsePayload} from '../questionnaire/responseForFields-response.payload';
 
 @Component({
   selector: 'app-response',
@@ -7,9 +14,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResponseComponent implements OnInit {
 
-  constructor() { }
+  form: FormResponsePayload;
+  responses: ResponseServerResponsePayload[];
+
+
+  constructor(private fieldService: FieldService, private localStorage: LocalStorageService, private responseService: ResponseService) {
+    this.form = {
+      id: 0,
+      userId: 0,
+      fields: []
+    };
+    this.responses = [];
+  }
 
   ngOnInit(): void {
+    const userId = JSON.parse(this.localStorage.retrieve('userdetails')).id;
+    this.fieldService.getFormByUserId(userId).subscribe((data) => {
+      this.form = data;
+      this.loadResponses();
+      console.log(this.form);
+    });
+  }
+
+  getResponseContentForField(field: FieldResponsePayload, responsesForFields: ResponseForFieldsResponsePayload[]): string {
+    // @ts-ignore
+    const returnValueResponse = responsesForFields.filter((responseForField) => {
+      if (responseForField.fieldId === field.id) {
+        return responseForField.content;
+      }
+    })[0];
+
+    if (returnValueResponse !== undefined) {
+      return  returnValueResponse.content;
+    } else {
+      return 'N/A';
+    }
+  }
+
+  loadResponses(): void {
+    this.responseService.getResponsesByFormId(this.form.id).subscribe((data) => {
+      this.responses = data;
+      console.log(this.responses);
+    });
   }
 
 }

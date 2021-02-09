@@ -124,7 +124,9 @@ export class FieldComponent implements OnInit {
   }
 
   deleteField(fieldId: number): void {
-
+    this.fieldService.deleteField(fieldId).subscribe((data) => {
+      this.loadFields();
+    });
   }
 
 }

@@ -83,7 +83,7 @@
         </select>
       </div>
 
-      <div class="form-group row" *ngIf="['CHECKBOX', 'COMBOBOX', 'RADIO_BUTTON'].includes(editFieldForm.get('fieldType').value)">
+      <div class="form-group row" *ngIf="['COMBOBOX', 'RADIO_BUTTON'].includes(editFieldForm.get('fieldType').value)">
         <label for="options">Options</label>
         <textarea id="options" class="form-control" [formControlName]="'options'" type="">
         </textarea>

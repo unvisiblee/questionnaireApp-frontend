@@ -69,7 +69,6 @@ export class QuestionnaireComponent implements OnInit {
 
   saveAnswer(): void {
     if (this.questionnaireFormGroup.invalid) {
-      console.log('invalid');
       return;
     }
     this.responseToSave.formId = this.formToAnswer.id;
@@ -81,12 +80,12 @@ export class QuestionnaireComponent implements OnInit {
         fieldId: this.formToAnswer.fields[index].id,
         content: control.value,
       });
-      console.log(this.responseToSave);
-      console.log(control.value);
     });
 
     this.responseService.createResponse(this.responseToSave).subscribe((data) => console.log(data));
-    console.log('saved');
+  }
 
+  resetForm(): void {
+    this.questionnaireFormGroup.reset();
   }
 }

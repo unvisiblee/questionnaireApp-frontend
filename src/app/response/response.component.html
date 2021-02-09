@@ -1,1 +1,29 @@
-<p>response works!</p>
+<div class="response-list">
+  <div class="row justify-content-center">
+    <div class="col-md-1"></div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header" style="text-align: left">
+          <h4>Responses</h4>
+        </div>
+
+        <div class="card-body">
+          <table class="table table-striped table-hover">
+            <thead>
+              <th *ngFor="let field of form.fields">{{field.label}}</th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let response of responses">
+              <!-- Because the table should have the same number of columns in head and body,
+                   we will iterate through fields, not responses for fields -->
+              <td *ngFor="let field of form.fields">{{getResponseContentForField(field, response.responseForFields)}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
