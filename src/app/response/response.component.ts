@@ -37,11 +37,8 @@ export class ResponseComponent implements OnInit {
   }
 
   getResponseContentForField(field: FieldResponsePayload, responsesForFields: ResponseForFieldsResponsePayload[]): string {
-    // @ts-ignore
     const returnValueResponse = responsesForFields.filter((responseForField) => {
-      if (responseForField.fieldId === field.id) {
-        return responseForField.content;
-      }
+      return responseForField.fieldId === field.id;
     })[0];
 
     if (returnValueResponse !== undefined) {

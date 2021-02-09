@@ -28,8 +28,6 @@ export class SignupComponent implements OnInit {
     };
   }
 
-
-
   ngOnInit(): void {
     this.signupForm = new FormGroup({
       username: new FormControl('', Validators.required, RxwebValidators.minLengthAsync({value: 3})),

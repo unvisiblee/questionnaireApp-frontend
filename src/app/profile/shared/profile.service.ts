@@ -4,6 +4,7 @@ import {UserResponsePayload} from '../edit-profile/user-response.payload';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {ChangePasswordPayload} from '../change-password/change-password.payload';
 
 
 @Injectable({
@@ -22,5 +23,10 @@ export class ProfileService {
   updateUser(userInfo: UserResponsePayload): Observable<UserResponsePayload> {
     const options = {headers: {'Content-Type': 'application/json'}};
     return this.httpClient.put<UserResponsePayload>(this.profileApi + '/update', JSON.stringify(userInfo), options);
+  }
+
+  changePassword(changePasswordPayload: ChangePasswordPayload): Observable<any> {
+    const options = {headers: {'Content-Type': 'application/json'}};
+    return this.httpClient.put<any>(this.profileApi + '/change-password', JSON.stringify(changePasswordPayload), options);
   }
 }

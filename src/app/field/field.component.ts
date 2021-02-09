@@ -71,7 +71,10 @@ export class FieldComponent implements OnInit {
   }
 
   getFieldTypeByEnum(fieldType: FieldType): string {
-    // todo
+    const fieldTypeString = Object.entries(FieldType).find((key) => key[0] === fieldType);
+    if (fieldTypeString !== undefined) {
+      return  fieldTypeString[1];
+    }
     return fieldType;
   }
 
