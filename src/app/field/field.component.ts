@@ -49,7 +49,7 @@ export class FieldComponent implements OnInit {
     };
 
     this.editFieldForm = new FormGroup({
-      label: new FormControl('', [Validators.required, RxwebValidators.email()]),
+      label: new FormControl('', [Validators.required]),
       fieldType: new FormControl('', [Validators.required]),
       options: new FormControl(),
       required: new FormControl(),

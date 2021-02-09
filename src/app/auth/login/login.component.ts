@@ -38,6 +38,9 @@ export class LoginComponent implements OnInit {
 
   // tslint:disable-next-line:typedef
   login() {
+    if (this.loginForm.invalid) {
+      return;
+    }
     this.loginRequestPayload.password = this.loginForm.get('password')?.value;
     this.loginRequestPayload.username = this.loginForm.get('username')?.value;
     this.authService.login(this.loginRequestPayload).subscribe(data => {
