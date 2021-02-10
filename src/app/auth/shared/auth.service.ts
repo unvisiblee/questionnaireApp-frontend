@@ -39,7 +39,6 @@ export class AuthService {
 }
 
   getUsername(): string | null {
-    console.log(this.localStorage.retrieve('username'));
     return this.localStorage.retrieve('username');
   }
 

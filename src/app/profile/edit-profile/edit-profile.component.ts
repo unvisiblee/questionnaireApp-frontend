@@ -49,7 +49,6 @@ export class EditProfileComponent implements OnInit {
     }
     this.profileService.getUserInfoByUsername(username).subscribe(data => {
       this.userInfo = data;
-      console.log(this.userInfo);
       this.editProfileForm.patchValue(this.userInfo);
     });
   }

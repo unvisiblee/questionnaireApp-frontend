@@ -44,7 +44,6 @@ export class LoginComponent implements OnInit {
     this.loginRequestPayload.password = this.loginForm.get('password')?.value;
     this.loginRequestPayload.username = this.loginForm.get('username')?.value;
     this.authService.login(this.loginRequestPayload).subscribe(data => {
-      console.log('Login successful');
       this.profileService.getUserInfoByUsername(this.loginForm.get('username')?.value).subscribe(info => {
         this.localStorage.store('userdetails', JSON.stringify(info));
         this.router.navigateByUrl('fields');

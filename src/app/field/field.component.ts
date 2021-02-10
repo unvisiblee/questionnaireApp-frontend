@@ -66,7 +66,6 @@ export class FieldComponent implements OnInit {
     this.fieldService.getFormByUserId(userId).subscribe(data =>
     {
       this.form = data;
-      console.log(data);
     });
   }
 
@@ -85,7 +84,6 @@ export class FieldComponent implements OnInit {
     this.editFieldForm.get('options')?.patchValue(this.editFieldForm.get('options')?.value.toString().replaceAll(',', '\n'));
     modalRef.result.then(
       (save) => {
-        console.log('save');
         this.fieldToEdit.label = this.editFieldForm.get('label')?.value;
         this.fieldToEdit.fieldType = this.editFieldForm.get('fieldType')?.value;
         this.fieldToEdit.required = this.editFieldForm.get('required')?.value;
@@ -98,7 +96,7 @@ export class FieldComponent implements OnInit {
           this.loadFields();
         });
         },
-      (crossClick) => { console.log('cross'); }
+      (crossClick) => {  }
       );
   }
 
@@ -119,7 +117,6 @@ export class FieldComponent implements OnInit {
         }
         this.fieldToCreate.formId = this.form.id;
         this.fieldService.createField(this.fieldToCreate).subscribe((data) => {
-          console.log('created');
           this.loadFields();
         });
       }

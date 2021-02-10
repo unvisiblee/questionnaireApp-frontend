@@ -57,7 +57,6 @@ export class SignupComponent implements OnInit {
       this.router.navigate(['/login'],
         {queryParams: {registered: 'true'} });
     }, error => {
-        console.log(JSON.parse(error.error).message);
         this.toastr.error(JSON.parse(error.error).message);
       });
   }

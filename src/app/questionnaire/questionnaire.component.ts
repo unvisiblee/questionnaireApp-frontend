@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FieldService} from '../shared/field.service';
 import {FormService} from '../shared/form.service';
 import {FormResponsePayload} from '../field/form-response.payload';
@@ -19,7 +19,7 @@ export class QuestionnaireComponent implements OnInit {
   questionnaireFormGroup: FormGroup;
   responseToSave: ResponseRequestPayload;
   constructor(private activatedRoute: ActivatedRoute, private formService: FormService, private formBuilder: FormBuilder,
-              private responseService: ResponseService) {
+              private responseService: ResponseService, private router: Router) {
     this.id = 0;
     this.formToAnswer = {
       id: 0,
@@ -45,7 +45,6 @@ export class QuestionnaireComponent implements OnInit {
       });
       this.initializeFormControls();
       this.questionnaireFormGroup.reset();
-      console.log(this.formToAnswer);
     });
   }
 
@@ -59,7 +58,6 @@ export class QuestionnaireComponent implements OnInit {
         this.questionnaireForm.push(newFormControl);
       }
     });
-    console.log(this.questionnaireForm.controls);
   }
 
 
@@ -82,7 +80,9 @@ export class QuestionnaireComponent implements OnInit {
       });
     });
 
-    this.responseService.createResponse(this.responseToSave).subscribe((data) => console.log(data));
+    this.responseService.createResponse(this.responseToSave).subscribe((data) => {
+      this.router.navigateByUrl('success');
+    });
   }
 
   resetForm(): void {

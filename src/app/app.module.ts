@@ -20,6 +20,8 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {TokenInterceptor} from './token-interceptor';
 import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+import { SuccessSubmitPageComponent } from './questionnaire/success-submit-page/success-submit-page.component';
+import {AuthGuard} from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,7 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
     ChangePasswordComponent,
     EditProfileComponent,
     QuestionnaireComponent,
+    SuccessSubmitPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,9 +54,10 @@ import { QuestionnaireComponent } from './questionnaire/questionnaire.component'
       }
     }),
     NgbModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
