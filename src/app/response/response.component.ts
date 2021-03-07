@@ -20,7 +20,6 @@ export class ResponseComponent implements OnInit {
 
   form: FormResponsePayload;
   responses: ResponseServerResponsePayload[];
-  /*webSocket =  new WebSocketSubject('ws://localhost:8080/responses');*/
   webSocket = new WebSocket('ws://localhost:8080/responses');
   webSocketObservable = fromEvent(this.webSocket, 'message');
 
