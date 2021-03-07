@@ -28,8 +28,6 @@ export class SignupComponent implements OnInit {
     };
   }
 
-
-
   ngOnInit(): void {
     this.signupForm = new FormGroup({
       username: new FormControl('', Validators.required, RxwebValidators.minLengthAsync({value: 3})),
@@ -43,6 +41,9 @@ export class SignupComponent implements OnInit {
   }
 
   signup(): void {
+    if (this.signupForm.invalid) {
+      return;
+    }
     this.signupRequestPayload.email = this.signupForm.get('email')?.value;
     this.signupRequestPayload.username = this.signupForm.get('username')?.value;
     this.signupRequestPayload.password = this.signupForm.get('password')?.value;
@@ -56,7 +57,6 @@ export class SignupComponent implements OnInit {
       this.router.navigate(['/login'],
         {queryParams: {registered: 'true'} });
     }, error => {
-        console.log(JSON.parse(error.error).message);
         this.toastr.error(JSON.parse(error.error).message);
       });
   }

@@ -1,0 +1,58 @@
+<div class="edit-section">
+  <div class="row justify-content-center">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header" style="text-align: center">
+          <h4>Edit profile</h4>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="editProfileForm" (ngSubmit)="updateUserInfo()">
+
+            <div class="form-group row">
+              <label for="email_address" class="col-md-4 col-form-label text-md-right required">E-Mail
+                Address
+              </label>
+              <div class="col-md-6">
+                <input type="email" [formControlName]="'email'" placeholder="Email" id="email_address" class="form-control" name="email-address" required
+                       autofocus>
+                <span *ngIf="!editProfileForm.get('email').valid && editProfileForm.get('email').touched" class="error">
+                  Please provide a valid email!
+                </span>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="first_name" class="col-md-4 col-form-label text-md-right">First Name</label>
+              <div class="col-md-6">
+                <input type="text" [formControlName]="'firstName'" placeholder="First name"  id="first_name" class="form-control" name="first_name">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="last_name" class="col-md-4 col-form-label text-md-right">Last Name</label>
+              <div class="col-md-6">
+                <input type="text" [formControlName]="'lastName'" placeholder="Last name"  id="last_name" class="form-control" name="first_name">
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label for="phone_number" class="col-md-4 col-form-label text-md-right">Phone Number</label>
+              <div class="col-md-6">
+                <input type="number" [formControlName]="'phoneNumber'" placeholder="375(12)3456789" id="phone_number" class="form-control" name="first_name">
+              </div>
+            </div>
+
+
+            <span class="col-md-6 offset-md-4">
+                            <button type="submit" class="sign-up">
+                                Confirm
+                            </button>
+                        </span>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>

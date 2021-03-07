@@ -19,10 +19,15 @@
     "@angular/platform-browser": "~11.0.9",
     "@angular/platform-browser-dynamic": "~11.0.9",
     "@angular/router": "~11.0.9",
+    "@ng-bootstrap/ng-bootstrap": "^9.0.2",
     "@rxweb/reactive-form-validators": "^2.1.2",
+    "@types/stompjs": "^2.3.4",
     "bootstrap": "^4.6.0",
+    "net": "^1.0.2",
     "ngx-webstorage": "^7.0.1",
     "rxjs": "~6.6.0",
+    "sockjs": "^0.3.21",
+    "stomp": "^0.1.1",
     "toastr": "^2.1.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
@@ -41,11 +46,13 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "ngx-toastr": "13.2.0",
+    "ngx-webstorage": "7.0.1",
     "protractor": "~7.0.0",
+    "sockjs": "0.3.21",
+    "stompjs": "^2.3.3",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~4.0.2",
-    "ngx-webstorage": "7.0.1",
-    "ngx-toastr": "13.2.0"
+    "typescript": "~4.0.2"
   }
 }

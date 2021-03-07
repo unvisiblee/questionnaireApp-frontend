@@ -6,12 +6,22 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import {ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {timeout} from 'rxjs/operators';
+import { FormComponent } from './form/form.component';
+import { FieldComponent } from './field/field.component';
+import { ResponseComponent } from './response/response.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {TokenInterceptor} from './token-interceptor';
+import { QuestionnaireComponent } from './questionnaire/questionnaire.component';
+import { SuccessSubmitPageComponent } from './questionnaire/success-submit-page/success-submit-page.component';
+import {AuthGuard} from './guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -19,6 +29,13 @@ import {timeout} from 'rxjs/operators';
     HeaderComponent,
     LoginComponent,
     SignupComponent,
+    FormComponent,
+    FieldComponent,
+    ResponseComponent,
+    ChangePasswordComponent,
+    EditProfileComponent,
+    QuestionnaireComponent,
+    SuccessSubmitPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,14 +44,26 @@ import {timeout} from 'rxjs/operators';
     HttpClientModule,
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot({progressBar: true, timeOut: 1001000, toastClass: 'alert',
+    ToastrModule.forRoot({
+      progressBar: true, timeOut: 2500, toastClass: 'alert',
       iconClasses: {
         error: 'alert-danger',
         info: 'alert-info',
         success: 'alert-success',
-        warning: 'alert-warning'} } )
+        warning: 'alert-warning'
+      }
+    }),
+    NgbModule,
+    FormsModule,
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

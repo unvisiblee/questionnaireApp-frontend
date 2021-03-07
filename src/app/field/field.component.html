@@ -1,0 +1,109 @@
+<div class="field-list">
+  <div class="row justify-content-center">
+    <div class="col-md-1"></div>
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header" style="text-align: left">
+          <h4>Fields</h4>
+        </div>
+        <span class="card-header" style="text-align: center">Users can answer to your form on the following URL:
+            <a href="http://localhost:4200/form/{{form.id}}/questionnaire">http://localhost:4200/form/{{form.id}}/questionnaire</a>
+          </span>
+        <div class="card-body">
+
+          <table class="table table-striped table-hover">
+            <thead>
+            <th>Label</th>
+            <th>Type</th>
+            <th>Required</th>
+            <th>Is Active</th>
+            <th>
+              <button class="btn btn-primary" (click)="createField(content)">
+                <img class="svg-icon add-field" src="assets/add-field-button.svg">
+                Add Field</button>
+            </th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let field of form.fields">
+              <td>
+                {{field.label}}
+              </td>
+              <td>
+                {{getFieldTypeByEnum(field.fieldType)}}
+              </td>
+              <td>
+                {{field.required}}
+              </td>
+              <td>
+                {{field.active}}
+              </td>
+              <td class="border border-info">
+                <button class="btn edit-field" (click)="editField(content, field)"><img class="svg-icon edit-field" src="assets/edit-field-button.svg"></button>
+                <button class="btn delete-field" (click)="deleteField(field.id)"><img class="svg-icon delete-field" src="assets/delete-field-button.svg"></button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3"></div>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit field</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('cross')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body row justify-content-center ">
+    <form [formGroup]="editFieldForm">
+      <div class="form-group row">
+        <label for="label">Label</label>
+        <div class="input-group">
+          <input id="label" class="form-control" [formControlName]="'label'" type="text">
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="fieldType">Field Type</label>
+        <select id="fieldType" class="form-control" [formControlName]="'fieldType'">
+          <option>SINGLE_LINE_TEXT</option>
+          <option>MULTILINE_TEXT</option>
+          <option>RADIO_BUTTON</option>
+          <option>CHECKBOX</option>
+          <option>COMBOBOX</option>
+          <option>DATE</option>
+        </select>
+      </div>
+
+      <div class="form-group row" *ngIf="['COMBOBOX', 'RADIO_BUTTON'].includes(editFieldForm.get('fieldType').value)">
+        <label for="options">Options</label>
+        <textarea id="options" class="form-control" [formControlName]="'options'" type="">
+        </textarea>
+      </div>
+
+      <div class="form-group align-content-start">
+        <div>
+        <input class="form-check-input" type="checkbox" id="required" [formControlName]="'required'">
+        <label class="form-check-label" for="required">
+          Required
+        </label>
+        </div>
+
+        <div>
+        <input class="form-check-input " type="checkbox" id="active" [formControlName]="'active'">
+        <label class="form-check-label" for="active">
+          Active
+        </label>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('save click')">Save</button>
+  </div>
+</ng-template>

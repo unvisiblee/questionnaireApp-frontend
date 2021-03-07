@@ -1,4 +1,6 @@
 import { Component, OnInit, EventEmitter } from '@angular/core';
+import {AuthService} from '../auth/shared/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,34 @@ import { Component, OnInit, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  username: string | null;
+  isLoggedIn: boolean | null;
 
-  ngOnInit(): void {
+  constructor(private authService: AuthService, private router: Router) {
+    this.isLoggedIn = false;
+    this.username = null;
   }
 
+  ngOnInit(): void {
+    this.authService.loggedIn.subscribe((data: boolean) => this.isLoggedIn = data);
+    this.authService.username.subscribe((data: string) => this.username = data);
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.username = this.authService.getUsername();
+
+  }
+
+  // tslint:disable-next-line:typedef
+  logout() {
+    this.authService.logout();
+    this.isLoggedIn = false;
+    this.router.navigateByUrl('login');
+  }
+
+  goToUserProfile(): void {
+    this.router.navigateByUrl('edit-profile');
+  }
+
+  goToChangePassword(): void {
+    this.router.navigateByUrl('change-password');
+  }
 }

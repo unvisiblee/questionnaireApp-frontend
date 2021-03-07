@@ -1,0 +1,37 @@
+.field-list{
+  margin: 100px;
+}
+
+.table td {
+  text-align: center;
+}
+
+.table th {
+  text-align: center;
+}
+
+.error {
+  color: red;
+}
+
+label.required {
+  font-weight: bold;
+}
+
+label.required:after {
+  content:"*";
+  color:red;
+}
+
+
+
+/* -----
+SVG Icons
+----- */
+
+.svg-icon {
+  width: 1.5em;
+  height: 1.5em;
+}
+
+
