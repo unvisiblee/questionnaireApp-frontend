@@ -8,6 +8,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {RxwebValidators} from '@rxweb/reactive-form-validators';
 import {FieldRequestPayload} from './field-request.payload';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-field',
@@ -22,7 +23,7 @@ export class FieldComponent implements OnInit {
   fieldToCreate: FieldRequestPayload;
 
   constructor(private fieldService: FieldService, private localStorage: LocalStorageService,
-              private ngbModal: NgbModal) {
+              private ngbModal: NgbModal, private toastr: ToastrService) {
     this.fieldToCreate = {
       label: '',
       required: false,
@@ -78,12 +79,16 @@ export class FieldComponent implements OnInit {
   }
 
   editField(content: TemplateRef<any>, field: FieldResponsePayload): void {
+
     this.fieldToEdit = field;
     const modalRef = this.ngbModal.open(content, {size: 'lg', ariaLabelledBy: 'modal-basic-title'});
     this.editFieldForm.patchValue(field);
     this.editFieldForm.get('options')?.patchValue(this.editFieldForm.get('options')?.value.toString().replaceAll(',', '\n'));
     modalRef.result.then(
       (save) => {
+        if (this.editFieldForm.invalid) {
+          this.toastr.error('Error while editing field, check your input and try again!');
+        } else {
         this.fieldToEdit.label = this.editFieldForm.get('label')?.value;
         this.fieldToEdit.fieldType = this.editFieldForm.get('fieldType')?.value;
         this.fieldToEdit.required = this.editFieldForm.get('required')?.value;
@@ -95,30 +100,35 @@ export class FieldComponent implements OnInit {
         this.fieldService.updateField(this.fieldToEdit).subscribe((data) => {
           this.loadFields();
         });
-        },
+        } },
       (crossClick) => {  }
       );
   }
 
   createField(content: TemplateRef<any>): void {
+
     const modalRef = this.ngbModal.open(content, {size: 'lg', ariaLabelledBy: 'modal-basic-title'});
     // @ts-ignore
     document.getElementById('modal-basic-title').innerHTML = 'Create field';
     this.editFieldForm.reset();
     modalRef.result.then(
       (save) => {
-        this.fieldToCreate.label = this.editFieldForm.get('label')?.value;
-        this.fieldToCreate.fieldType = this.editFieldForm.get('fieldType')?.value;
-        this.fieldToCreate.required = this.editFieldForm.get('required')?.value;
-        this.fieldToCreate.active = this.editFieldForm.get('active')?.value;
-        const options = this.editFieldForm.get('options')?.value;
-        if (options !== null) {
-          this.fieldToCreate.options = options.split('\n');
+        if (this.editFieldForm.invalid) {
+          this.toastr.error('Error while creating field, check your input and try again!');
+        } else {
+          this.fieldToCreate.label = this.editFieldForm.get('label')?.value;
+          this.fieldToCreate.fieldType = this.editFieldForm.get('fieldType')?.value;
+          this.fieldToCreate.required = this.editFieldForm.get('required')?.value;
+          this.fieldToCreate.active = this.editFieldForm.get('active')?.value;
+          const options = this.editFieldForm.get('options')?.value;
+          if (options !== null) {
+            this.fieldToCreate.options = options.split('\n');
+          }
+          this.fieldToCreate.formId = this.form.id;
+          this.fieldService.createField(this.fieldToCreate).subscribe((data) => {
+            this.loadFields();
+          });
         }
-        this.fieldToCreate.formId = this.form.id;
-        this.fieldService.createField(this.fieldToCreate).subscribe((data) => {
-          this.loadFields();
-        });
       }
     );
   }
